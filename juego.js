@@ -12,16 +12,16 @@ let gameState = {
     // Dispositivo y Colegio
     celular: "Celu Viejito 📱",
     permisoSalirSolo: false,
-    notaColegio: 3, // De 1 a 10 (Empieza horrible)
+    notaColegio: 3,
     ubicacion: "Casanova (Casa y Colegio)",
     
     // Stats de Juego
     stats: {
-        velocidad: 65, // Muy rápido de chico
-        tiro: 40,      // Masó
-        pase: 45,      // Masó
-        fisico: 30,    // Normal de nene
-        resistencia: 35// Normal de nene
+        velocidad: 65,
+        tiro: 40,
+        pase: 45,
+        fisico: 30,
+        resistencia: 35
     },
     ovr: 43,
     
@@ -36,7 +36,7 @@ let gameState = {
     ytMonetizado: false,
     
     // Personajes y Relaciones
-    friends: ['Ian', 'Carlos'], // Amigos de 1ro desde los 9 años
+    friends: ['Ian', 'Carlos'],
     hermanos: {
         brian: "Brian (23 años en 2023): Callado, toma mate y tira chistes oportunos.",
         nico: "Nico (25 años en 2023): De joda, simpático pero siempre sin un peso."
@@ -52,9 +52,9 @@ function recalcularOVR() {
     gameState.ovr = Math.round((s.velocidad + s.tiro + s.pase + s.fisico + s.resistencia) / 5);
 }
 
-/* --- SISTEMA DE DIFICULTAD Y PROBABILIDAD (REALISMO DE FRACASO) --- */
+/* --- SISTEMA DE DIFICULTAD Y PROBABILIDAD --- */
 function intentarAccion(stat, dificultad) {
-    let azar = Math.floor(Math.random() * 50); // Factor suerte
+    let azar = Math.floor(Math.random() * 50);
     let total = gameState.stats[stat] + azar;
     return total >= dificultad;
 }
@@ -101,7 +101,7 @@ const storyData = {
 
     'trabajo_casa': {
         text: "<b>Limpiando el Patio 🧹</b><br>Acomodaste las cosas y barriste. Tu mamá te dio $100 de recompensa.",
-        effect: () => { gameState.money += 100; gameState.energy -= 20; },
+        effect: function() { gameState.money += 100; gameState.energy -= 20; },
         choices: [
             { text: "👍 Guardar la plata e ir al colegio", nextScene: 'escuela_recreo_9' }
         ]
@@ -109,7 +109,7 @@ const storyData = {
 
     'dormir_9': {
         text: "<b>Descanso 💤</b><br>Te tiraste un rato a dormir. Recuperaste energías para el día siguiente.",
-        effect: () => { gameState.energy = Math.min(100, gameState.energy + 30); },
+        effect: function() { gameState.energy = Math.min(100, gameState.energy + 30); },
         choices: [
             { text: "☀️ Despertar e ir a la escuela", nextScene: 'escuela_recreo_9' }
         ]
@@ -120,14 +120,14 @@ const storyData = {
         choices: [
             { text: "🤝 Defenderte junto a Tizi, Ian y Carlos (Pelea / Físico)", nextScene: 'pelea_recreo' },
             { text: "🏃 Aprovechar tu velocidad (65 VEL) para sacar la pelota picando (+5 Vel)", nextScene: 'escapar_velocidad', statsGain: { velocidad: 5 } },
-            { text: "🫣 Salir del patio e irte solo al aula a comer la merienda", nextScene: 'aislarse_9', effect: () => { gameState.friends = []; } }
+            { text: "🫣 Salir del patio e irte solo al aula a comer la merienda", nextScene: 'aislarse_9', effect: function() { gameState.friends = []; } }
         ]
     },
 
     'pelea_recreo': {
         text: "<b>¡Tensión en el Patio! 💥</b><br>Te metés a bancar la parada con Tizi.",
         choices: [
-            { text: "💥 Enfrentarlos a las piñas", action: () => {
+            { text: "💥 Enfrentarlos a las piñas", action: function() {
                 if (intentarAccion('fisico', 50)) {
                     alert("¡Ganaron la pelea entre todos! Tizi se suma oficialmente al grupo de Ian y Carlos.");
                     gameState.friends.push('Tizi');
@@ -150,7 +150,7 @@ const storyData = {
 
     'aislarse_9': {
         text: "<b>Solo en el Aula 🪑</b><br>Dejaste a los chicos tirados y te fuiste solo. Perdiste a tus amigos.",
-        effect: () => { desbloquearLogro("0 Amigos 🚫"); },
+        effect: function() { desbloquearLogro("0 Amigos 🚫"); },
         choices: [
             { text: "⏩ Avanzar de año", nextScene: 'fin_ano_9' }
         ]
@@ -170,7 +170,7 @@ const storyData = {
         text: "<b>Año 2024 (10 Años) - Casanova 🏫</b><br>Seguís sin permiso para salir solo a la calle. Jugás al fútbol en el patio de la escuela y al Minecraft en casa. En el boletín tus notas vienen muy mal (3/10).",
         choices: [
             { text: "⚽ Entrenar tu tiro contra el paredón de casa (+5 Tiro)", nextScene: 'ano_11', statsGain: { tiro: 5 } },
-            { text: "📱 Grabar tu primer video de Minecraft para YouTube (+100 Subs)", nextScene: 'ano_11', effect: () => { gameState.ytSubs += 100; } }
+            { text: "📱 Grabar tu primer video de Minecraft para YouTube (+100 Subs)", nextScene: 'ano_11', effect: function() { gameState.ytSubs += 100; } }
         ]
     },
 
@@ -180,7 +180,7 @@ const storyData = {
         year: 2025,
         age: 11,
         ubicacion: "Ramos Mejía",
-        effect: () => { if (!gameState.friends.includes('Estrella')) gameState.friends.push('Estrella'); },
+        effect: function() { if (!gameState.friends.includes('Estrella')) gameState.friends.push('Estrella'); },
         choices: [
             { text: "🧃 Comprarle un Baggio de Manzana en el kiosko en agradecimiento (-$150)", nextScene: 'baggio_estrella', reqMoney: 150 },
             { text: "📝 Decirle 'Gracias' y no comprarle nada esta vez", nextScene: 'cumple_12' }
@@ -189,7 +189,7 @@ const storyData = {
 
     'baggio_estrella': {
         text: "<b>Kiosko del Colegio 🧃</b><br>Le comprás el Baggio a Estrella. Se pone súper contenta y te salva de sacarte un 1 en el examen integrador.",
-        effect: () => { 
+        effect: function() { 
             gameState.money -= 150; 
             gameState.notaColegio = 7;
             desbloquearLogro("Salvado por Estrella 🧃");
@@ -203,7 +203,7 @@ const storyData = {
         text: "<b>Año 2026 - ¡Tu Cumpleaños de 12! 🎁📱</b><br>Brian (26) y Nico (28) entran a tu pieza. Nico hace quilombo y Brian te da una cajita: <b>¡Te regalaron un Celu Mucho Mejor juntando plata entre los dos!</b><br><br>Ahora podés grabar Minecraft re fluido para YouTube y transmitir en vivo.",
         year: 2026,
         age: 12,
-        effect: () => { gameState.celular = "SmartPhone Nuevo 📱✨"; },
+        effect: function() { gameState.celular = "SmartPhone Nuevo 📱✨"; },
         choices: [
             { text: "🫂 Abrazar a Brian y a Nico y luego ir al colegio", nextScene: 'secundaria_michael' }
         ]
@@ -212,7 +212,7 @@ const storyData = {
     'secundaria_michael': {
         text: "<b>Patio del Colegio Secundaria (12 Años) 🏫🔥</b><br>Jugando con Tobi, Michael y Thiago 👓, la pelota va al techo. Michael sube a buscarla y, al escuchar a la preceptora, <b>¡SE TIRA DEL TECHO!</b> 💥<br><br>Se rompe el tobillo 🚑 pero rescata la pelota. Queda como leyenda total. Estrella te mira riéndose desde el banco: <i>'Si no estudias vas a terminar roto como Michael'</i>.",
         choices: [
-            { text: "🧃 Comprarle otro Baggio a Estrella para que te salve las notas (-$150)", nextScene: 'cumple_13', reqMoney: 150, effect: () => { gameState.money -= 150; } },
+            { text: "🧃 Comprarle otro Baggio a Estrella para que te salve las notas (-$150)", nextScene: 'cumple_13', reqMoney: 150, effect: function() { gameState.money -= 150; } },
             { text: "🔥 Ir a la clínica con Michael a hacerle el aguante", nextScene: 'cumple_13' }
         ]
     },
@@ -222,7 +222,7 @@ const storyData = {
         text: "<b>Año 2027 - 13 Años (Años Clave) 🔑🔓</b><br>¡Llegó el día! Tu mamá habla con vos: <i>'Ya estás grande. Tenés permiso para ir y volver solo del colegio y salir al barrio'</i>.<br><br>¡Por fin tenés libertad para moverte solo y probarte en clubes de verdad!",
         year: 2027,
         age: 13,
-        effect: () => { gameState.permisoSalirSolo = true; },
+        effect: function() { gameState.permisoSalirSolo = true; },
         choices: [
             { text: "🏃 Irte solo a probar a las Inferiores de un Club de Barrio (Examen Físico)", nextScene: 'prueba_club' },
             { text: "🍕 Juntarte solo por primera vez con los pibes en la plaza", nextScene: 'plaza_13' },
@@ -232,7 +232,7 @@ const storyData = {
 
     'trabajo_almacen': {
         text: "<b>Almacén del Barrio 🏪</b><br>Trabajaste atendiendo a los vecinos. Terminaste cansado pero juntaste plata para tus botines.",
-        effect: () => { gameState.money += 500; gameState.energy -= 40; },
+        effect: function() { gameState.money += 500; gameState.energy -= 40; },
         choices: [
             { text: "⚽ Ir a la prueba del club", nextScene: 'prueba_club' }
         ]
@@ -248,7 +248,7 @@ const storyData = {
     'prueba_club': {
         text: "<b>Prueba de Jugadores en Inferiores 🏟️</b><br>El DT te pone en la cancha. Tenés que demostrar tu velocidad (65 VEL) o tu juego.",
         choices: [
-            { text: "⚡ Desbordar a pura velocidad por la banda (Prueba de Vel)", action: () => {
+            { text: "⚡ Desbordar a pura velocidad por la banda (Prueba de Vel)", action: function() {
                 if (intentarAccion('velocidad', 70)) {
                     alert("¡LA ROMPISTE! El DT te fichó para el club.");
                     desbloquearLogro("Fichado en Inferiores 📝");
@@ -258,7 +258,7 @@ const storyData = {
                     renderScene('fracaso_prueba');
                 }
             }},
-            { text: "🎯 Intentar pases filtrados (Prueba de Pase)", action: () => {
+            { text: "🎯 Intentar pases filtrados (Prueba de Pase)", action: function() {
                 if (intentarAccion('pase', 65)) {
                     alert("¡Buena visión de juego! Entraste al equipo.");
                     renderScene('torneo_juvenil');
@@ -280,7 +280,7 @@ const storyData = {
     'torneo_juvenil': {
         text: "<b>Final del Torneo Juvenil 🏆</b><br>Llegaste a la final. El partido está 1 a 1 en el minuto 88.",
         choices: [
-            { text: "👟 Pegarle al arco desde afuera del área (Tiro)", action: () => {
+            { text: "👟 Pegarle al arco desde afuera del área (Tiro)", action: function() {
                 if (intentarAccion('tiro', 70)) {
                     alert("¡GOLAZO CLAVADO AL ÁNGULO! Campeones del torneo.");
                     gameState.trofeos.push("Copa Juvenil Barrio 🏆");
@@ -291,7 +291,7 @@ const storyData = {
                     renderScene('etapa_18_anos');
                 }
             }},
-            { text: "💥 Ir a trabar fuerte con la cabeza (Lesión / Físico)", action: () => {
+            { text: "💥 Ir a trabar fuerte con la cabeza (Lesión / Físico)", action: function() {
                 if (intentarAccion('fisico', 75)) {
                     alert("Recuperaste la pelota y asististe para el gol del triunfo.");
                     gameState.trofeos.push("Copa Juvenil Barrio 🏆");
@@ -306,9 +306,9 @@ const storyData = {
         ]
     },
 
-    // ================= 18+ AÑOS (PROFESIONALISMO Y EUROPA) =================
+    // ================= 18+ AÑOS =================
     'etapa_18_anos': {
-        text: "<b>Año 2032 - 18 Años Cumplidos 🔞 Stadium</b><br>Ya sos mayor de edad. Ahora SÍ podés viajar al exterior si junta'ste la plata suficiente ($5.000) o si te busca un representante de Europa.",
+        text: "<b>Año 2032 - 18 Años Cumplidos 🔞</b><br>Ya sos mayor de edad. Ahora SÍ podés viajar al exterior si juntaste la plata suficiente ($5.000) o si te busca un representante de Europa.",
         year: 2032,
         age: 18,
         choices: [
@@ -320,7 +320,7 @@ const storyData = {
 
     'trabajo_grande': {
         text: "<b>Trabajando Fuerte 💼</b><br>Trabajaste duro todo el año y ahorraste para el pasaje a Europa.",
-        effect: () => { gameState.money += 3000; },
+        effect: function() { gameState.money += 3000; },
         choices: [
             { text: "✈️ Intentar el viaje a Europa", nextScene: 'etapa_18_anos' }
         ]
@@ -329,7 +329,7 @@ const storyData = {
     'barcelona_prueba': {
         text: "<b>Pruebas en Barcelona 🇪🇸🏟️</b><br>Estás en La Masía. Si aprobás esta prueba, firmás tu primer contrato millonario.",
         choices: [
-            { text: "🔥 Demostrar todo tu nivel", action: () => {
+            { text: "🔥 Demostrar todo tu nivel", action: function() {
                 recalcularOVR();
                 if (gameState.ovr >= 65) {
                     alert("¡FIRMATE CONTRATO EN EUROPA! Sos jugador profesional del Barcelona.");
@@ -347,7 +347,7 @@ const storyData = {
     'copa_america_final': {
         text: "<b>Final de la Copa América con la Selección 🇦🇷🏆</b><br>Minuto 90. Penal a favor.",
         choices: [
-            { text: "⚽ Patear el penal decisivo", action: () => {
+            { text: "⚽ Patear el penal decisivo", action: function() {
                 if (intentarAccion('tiro', 60)) {
                     alert("¡GOL DE ARGENTINA! ¡CAMPEONES DE AMÉRICA!");
                     gameState.trofeos.push("Copa América 🏆");
@@ -362,11 +362,11 @@ const storyData = {
     },
 
     'ver_historial': {
-        text: () => {
+        text: function() {
             if (carrerasGuardadas.length === 0) return "<b>No tenés carreras guardadas aún.</b>";
             let html = "<b>HISTORIAL DE CARRERAS:</b><br><br>";
-            carrerasGuardadas.forEach((c, idx) => {
-                html += `<b>Carrera #${idx + 1}:</b> Media ${c.ovr} | Trofeos: ${c.trofeos.join(", ") || "Ninguno"}<br>`;
+            carrerasGuardadas.forEach(function(c, idx) {
+                html += "<b>Carrera #" + (idx + 1) + ":</b> Media " + c.ovr + " | Trofeos: " + (c.trofeos.join(", ") || "Ninguno") + "<br>";
             });
             return html;
         },
@@ -387,7 +387,6 @@ function updateUI() {
     document.getElementById('stat-celu').innerText = gameState.celular;
     document.getElementById('stat-nota').innerText = gameState.notaColegio + "/10";
     
-    // Renderizar Logros
     let listElem = document.getElementById('achievements-list');
     if (logrosDesbloqueados.length > 0) {
         listElem.innerHTML = "• " + logrosDesbloqueados.join("<br>• ");
@@ -410,14 +409,17 @@ function renderScene(sceneId) {
     const container = document.getElementById('choices-container');
     container.innerHTML = '';
 
-    scene.choices.forEach(choice => {
-        // Validar si requiere plata
+    scene.choices.forEach(function(choice) {
         if (choice.reqMoney && gameState.money < choice.reqMoney) return;
 
         const button = document.createElement('button');
         button.innerText = choice.text;
         button.classList.add('choice-btn');
 
-        button.addEventListener('click', () => {
+        button.addEventListener('click', function() {
             if (choice.statsGain) {
-                for
+                for (let stat in choice.statsGain) {
+                    gameState.stats[stat] += choice.statsGain[stat];
+                }
+            }
+            if (cho
