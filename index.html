@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Potrero El Ídolo: Vida Real ⚽</title>
-    <link rel="stylesheet" href="style.css">
+    <!-- AQUÍ ESTÁ EL CAMBIO: cambiamos style.css por estilos.css -->
+    <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
 
     <div id="game-container">
-        <!-- BARRA DE ESTADÍSTICAS COMPLETA -->
+        <!-- BARRA DE ESTADÍSTICAS -->
         <div class="stats-bar">
             <div>📅 <b>Año:</b> <span id="stat-year">2023</span> (<span id="stat-age">9</span> años)</div>
             <div>⚽ <b>OVR:</b> <span id="stat-soccer">40</span> | 🔋 <b>Energía:</b> <span id="stat-energy">100%</span></div>
@@ -17,27 +18,23 @@
             <div>🏫 <b>Notas Cole:</b> <span id="stat-nota">Malísima (3/10)</span></div>
         </div>
 
-        <!-- UBICACIÓN -->
         <div id="location" style="font-size: 0.9em; color: #007acc; font-weight: bold; margin-bottom: 10px;">
             📍 Casanova, Buenos Aires
         </div>
 
-        <!-- TEXTO DE LA HISTORIA -->
         <div id="story-text">
             Cargando el potrero y la vida...
         </div>
 
-        <!-- BOTONES DE DECISIONES -->
         <div id="choices-container"></div>
 
-        <!-- SISTEMA DE LOGROS EN PANTALLA -->
         <div id="achievements-container">
-            <h3>🏆 Vitrina de Logros y Trofeos</h3>
+            <h3>🏆 Vitrina de Logros</h3>
             <div id="achievements-list">Todavía no desbloqueaste ningún logro.</div>
         </div>
     </div>
 
-    <!-- USAMOS v=1.4 PARA OBLIGAR AL NAVEGADOR A CARGAR TODO NUEVO -->
-    <script src="juego.js?v=1.4"></script>
+    <!-- Asegurate que el JS se llame igual al archivo que tenés -->
+    <script src="juego.js?v=2.0"></script>
 </body>
 </html>
