@@ -3,24 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Potrero El Ídolo: Realismo</title>
+    <title>Potrero El Ídolo: Vida Real ⚽</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
     <div id="game-container">
+        <!-- BARRA DE ESTADÍSTICAS COMPLETA -->
         <div class="stats-bar">
-            <div>📅 <span id="stat-year">2023</span> | <span id="stat-age">9</span> años</div>
-            <div>⚡ <span id="stat-soccer">40 OVR</span> | 🔋 <span id="stat-energy">100%</span></div>
-            <div>💵 <span id="stat-money">$300</span></div>
+            <div>📅 <b>Año:</b> <span id="stat-year">2023</span> (<span id="stat-age">9</span> años)</div>
+            <div>⚽ <b>OVR:</b> <span id="stat-soccer">40</span> | 🔋 <b>Energía:</b> <span id="stat-energy">100%</span></div>
+            <div>💵 <b>Plata:</b> <span id="stat-money">$300</span> | 📱 <b>Celu:</b> <span id="stat-celu">Viejito</span></div>
+            <div>🏫 <b>Notas Cole:</b> <span id="stat-nota">Malísima (3/10)</span></div>
         </div>
-        <div id="story-text">Cargando...</div>
+
+        <!-- UBICACIÓN -->
+        <div id="location" style="font-size: 0.9em; color: #007acc; font-weight: bold; margin-bottom: 10px;">
+            📍 Casanova, Buenos Aires
+        </div>
+
+        <!-- TEXTO DE LA HISTORIA -->
+        <div id="story-text">
+            Cargando el potrero y la vida...
+        </div>
+
+        <!-- BOTONES DE DECISIONES -->
         <div id="choices-container"></div>
+
+        <!-- SISTEMA DE LOGROS EN PANTALLA -->
         <div id="achievements-container">
-            <h4 style="margin-top:20px;">🏆 Mis Logros:</h4>
-            <div id="achievements-list">Ninguno aún.</div>
+            <h3>🏆 Vitrina de Logros y Trofeos</h3>
+            <div id="achievements-list">Todavía no desbloqueaste ningún logro.</div>
         </div>
     </div>
-    <!-- Nota: El v=1.2 fuerza al navegador a cargar la versión nueva -->
-    <script src="juego.js?v=1.2"></script>
+
+    <!-- USAMOS v=1.4 PARA OBLIGAR AL NAVEGADOR A CARGAR TODO NUEVO -->
+    <script src="juego.js?v=1.4"></script>
 </body>
 </html>
